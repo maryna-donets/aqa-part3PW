@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+require('dotenv').config();
 let SignUpPage = require('./pages/SignUpPage')
 let RemovePage = require('./pages/RemovePage')
 
@@ -70,9 +71,14 @@ await expect(lastNameError).toHaveText('Last name has to be from 2 to 20 charact
         getComputedStyle(element).borderColor
     );
     expect(borderColor).toBe('rgb(220, 53, 69)');
-    const borderColor2 = await page.$eval('input[id="signupLastName"]', (element) =>
-        getComputedStyle(element).borderColor
-    );
+
+    await page.waitForSelector('input[id="signupLastName"]');
+
+    const borderColor2 = await page.evaluate(() => {
+      const element = document.querySelector('input[id="signupLastName"]');
+      if (!element) return null;
+      return getComputedStyle(element).borderColor;
+  });
     expect(borderColor2).toBe('rgb(220, 53, 69)');
     await page.getByRole('button', { name: 'Register' }).isDisabled();
 });
