@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
-require('dotenv').config();
-let SignUpPage = require('./pages/SignUpPage')
-let RemovePage = require('./pages/RemovePage')
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import SignUpPage from './pages/SignUpPage';
+import RemovePage from './pages/RemovePage';
 
 test.beforeEach(async ({ page }) => {
     const signupPageInstance = new SignUpPage(page);

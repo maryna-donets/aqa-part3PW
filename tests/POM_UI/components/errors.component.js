@@ -34,4 +34,4 @@ class ErrorsComponent {
 		return await this.lastnameInvalidLocator.textContent();
 	}
 }
-module.exports = ErrorsComponent;
+export default ErrorsComponent;
