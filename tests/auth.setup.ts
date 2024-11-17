@@ -11,10 +11,7 @@ setup('authenticate', async ({ page }) => {
 	await page.getByLabel("Remember me").check();
 	await page.getByRole("button", { name: "Login" }).click();
 	await page.waitForURL('https://guest:welcome2qauto@qauto.forstudy.space/panel/garage');
-	
+
 	await page.context().storageState({ path: authFile });
 	
 });
-
-//npx ts-node tests/auth.setup.ts
-
