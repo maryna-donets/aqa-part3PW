@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import TestRailReporter from 'playwright-testrail-reporter';
 
 // Емуляція __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -37,7 +38,19 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    ['list'], // Звичайний консольний репортер
+    [
+      './node_modules/playwright-testrail-reporter',
+      {
+        host: 'https://marynadonets.testrail.io/',
+        username: 'kotlyarmv@gmail.com',
+        password: 'ncBtm0X4Z7/RFcEU8izX-frbbTCCIS48tqAJ7yweP',
+        projectId: 1, // ID вашого проєкту в TestRail
+        suiteId: 1,   // ID тестової suite в TestRail
+      },
+    ],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
