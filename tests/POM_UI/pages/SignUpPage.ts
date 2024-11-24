@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import ErrorsComponent from "../components/errors.component";
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 class SignUpPage {
     nameField: any;
@@ -29,7 +30,6 @@ class SignUpPage {
        // await this.page.goto('https://guest:welcome2qauto@qauto.forstudy.space/');
 
        const fullUrl = `${process.env.BASE_URL.replace('https://', `https://${process.env.HTTP_USER_NAME}:${process.env.HTTP_PASSWORD}@`)}`;
-
         await this.page.goto(fullUrl);
         await this.page.getByRole('button', { name: 'Sign up' }).click();
 
@@ -102,4 +102,4 @@ class SignUpPage {
     }
 }
 
-module.exports = SignUpPage;
+export default SignUpPage;

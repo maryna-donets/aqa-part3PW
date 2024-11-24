@@ -1,6 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+// Емуляція __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function loadEnv(env:string){
   dotenv.config({path: path.resolve(__dirname, `.env.${env}`), override: true})
@@ -44,24 +49,32 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'development',
       testMatch: '**/*.spec.ts',
       use: { 
-        baseURL: process.env.BASE_URL,
+        //baseURL: process.env.BASE_URL,
         screenshot: 'only-on-failure',
         headless: process.env.HEADLESS==='true',
-        ...devices['Desktop Chrome'] },
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        storageState: 'playwright/.auth/user.json'
+     },
+     dependencies: ['setup'],
     },
 
     {
       name: 'production',
       testMatch: '**/*.spec.ts',
       use: { 
-        baseURL: process.env.BASE_URL,
+       // baseURL: process.env.BASE_URL,
         video: 'retain-on-failure',
         headless: process.env.HEADLESS==='false',
-        ...devices['Desktop Chrome'] },
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json'
+      },
+      dependencies: ['setup'],
     },
 
     /*{

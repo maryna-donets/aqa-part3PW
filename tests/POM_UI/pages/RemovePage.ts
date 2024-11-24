@@ -28,5 +28,5 @@ class RemovePage {
     }
 }
 
-module.exports = RemovePage;
+export default RemovePage;
 
