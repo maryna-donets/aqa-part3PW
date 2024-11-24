@@ -43,6 +43,10 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
      baseURL: process.env.BASE_URL,
 
+     httpCredentials: {
+      username: process.env.HTTP_USER_NAME ?? 'test',
+      password: process.env.HTTP_PASSWORD ?? 'test',
+     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
