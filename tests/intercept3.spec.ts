@@ -1,14 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { ProfilePage } from '../page-objects/pages/profilePage';
 import { users } from '../test-data/users';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 test.describe('Profile test with POM', () => {
     let profilePage: ProfilePage;
 
     test.beforeEach(async ({ page }) => {
         profilePage = new ProfilePage(page);
-        await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/');
+        await page.goto('/');
     })
 
     test('Verify profile', async ({ page }) => {
@@ -29,7 +30,8 @@ test.describe('Profile test with POM', () => {
         }));
         await expect(profilePage.editProfileButton).toBeVisible;
         await profilePage.openAsLoggedUser(users.user1.email, users.user1.password);
-        await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/panel/profile');
+        await page.goto('/panel/profile');
+
         await page.pause();
     })
 })
