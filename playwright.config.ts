@@ -80,6 +80,15 @@ export default defineConfig({
       },
       dependencies: ['setup'],
     },
+    {
+      name: 'test',
+      testMatch: '**/*.spec.ts',
+      use: { 
+       baseURL: process.env.BASE_URL,
+        video: 'retain-on-failure',
+        ...devices['Desktop Chrome'],
+      },
+    },
 
     /*{
       name: 'webkit',
