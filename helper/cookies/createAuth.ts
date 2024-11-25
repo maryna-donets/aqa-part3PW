@@ -1,6 +1,4 @@
 import { request } from "@playwright/test";
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 //let sid: string;
 export default async function getAuthSid (email: string, password: string){

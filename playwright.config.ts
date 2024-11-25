@@ -2,16 +2,16 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-
+dotenv.config();
 // Емуляція __dirname
-const __filename = fileURLToPath(import.meta.url);
+/*const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function loadEnv(env:string){
   dotenv.config({path: path.resolve(__dirname, `.env.${env}`), override: true})
 }
 const env = process.env.NODE_ENV || 'develop';
-loadEnv(env)
+loadEnv(env)*/
 
 /**
  * Read environment variables from file.
