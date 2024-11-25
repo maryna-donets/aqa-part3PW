@@ -5,11 +5,17 @@ import { users } from '../../test-data/users';
 export class ProfilePage {
     readonly page: Page;
     readonly editProfileButton: Locator;
+    readonly profileName: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
         this.editProfileButton = page.getByRole('button', { name: 'Edit profile'});
+        this.profileName = page.locator('.profile_name.display-4')
+    }
+
+    async getProfileName(){
+        return await this.profileName.textContent();
     }
 
     async open() {

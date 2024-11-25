@@ -53,32 +53,32 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    //{ name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'development',
       testMatch: '**/*.spec.ts',
       use: { 
-        //baseURL: process.env.BASE_URL,
+        baseURL: process.env.BASE_URL,
         screenshot: 'only-on-failure',
         headless: process.env.HEADLESS==='true',
         ...devices['Desktop Chrome'],
         browserName: 'chromium',
-        storageState: 'playwright/.auth/user.json'
+        //storageState: 'playwright/.auth/user.json'
      },
-     dependencies: ['setup'],
+    // dependencies: ['setup'],
     },
 
     {
       name: 'production',
       testMatch: '**/*.spec.ts',
       use: { 
-       // baseURL: process.env.BASE_URL,
+        baseURL: process.env.BASE_URL,
         video: 'retain-on-failure',
         headless: process.env.HEADLESS==='false',
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json'
+        //storageState: 'playwright/.auth/user.json'
       },
-      dependencies: ['setup'],
+      //dependencies: ['setup'],
     },
     {
       name: 'test',
