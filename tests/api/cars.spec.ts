@@ -4,8 +4,6 @@ import {cars} from '../../test-data/cars'
 import getHeader from '../../helper/cookies/saveHeader'
 import addCar from '../../helper/addcar/addCarApi'
 import {errors} from '../../test-data/errors'
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 test.describe('Add cars', ()=> {
     let authHeader: { Cookie: string; };
