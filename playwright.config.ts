@@ -2,17 +2,21 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+
+dotenv.config();
+
 import TestRailReporter from 'playwright-testrail-reporter';
 
+
 // Емуляція __dirname
-const __filename = fileURLToPath(import.meta.url);
+/*const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function loadEnv(env:string){
   dotenv.config({path: path.resolve(__dirname, `.env.${env}`), override: true})
 }
 const env = process.env.NODE_ENV || 'develop';
-loadEnv(env)
+loadEnv(env)*/
 
 /**
  * Read environment variables from file.
@@ -56,38 +60,51 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
      baseURL: process.env.BASE_URL,
 
+     httpCredentials: {
+      username: process.env.HTTP_USER_NAME ?? 'test',
+      password: process.env.HTTP_PASSWORD ?? 'test',
+     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    //{ name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'development',
       testMatch: '**/*.spec.ts',
       use: { 
-        //baseURL: process.env.BASE_URL,
+        baseURL: process.env.BASE_URL,
         screenshot: 'only-on-failure',
         headless: process.env.HEADLESS==='true',
         ...devices['Desktop Chrome'],
         browserName: 'chromium',
-        storageState: 'playwright/.auth/user.json'
+        //storageState: 'playwright/.auth/user.json'
      },
-     dependencies: ['setup'],
+    // dependencies: ['setup'],
     },
 
     {
       name: 'production',
       testMatch: '**/*.spec.ts',
       use: { 
-       // baseURL: process.env.BASE_URL,
+        baseURL: process.env.BASE_URL,
         video: 'retain-on-failure',
         headless: process.env.HEADLESS==='false',
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json'
+        //storageState: 'playwright/.auth/user.json'
       },
-      dependencies: ['setup'],
+      //dependencies: ['setup'],
+    },
+    {
+      name: 'test',
+      testMatch: '**/*.spec.ts',
+      use: { 
+       baseURL: process.env.BASE_URL,
+        video: 'retain-on-failure',
+        ...devices['Desktop Chrome'],
+      },
     },
 
     /*{
