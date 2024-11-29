@@ -3,7 +3,7 @@ test.beforeEach(async ({ page }) => {
     await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/');
     await page.getByRole('button', { name: 'Sign up' }).click();
   });
-test('Successful sign up', async ({ page }) => {
+test('C6: Successful sign up', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('Maryna');
     await page.locator('[id="signupLastName"]').fill('Test');
     await page.getByLabel('Email').fill('aqa-maryna@test.com');
@@ -17,7 +17,7 @@ test('Successful sign up', async ({ page }) => {
     await expect(page).toHaveURL('https://qauto.forstudy.space');
   });
 
-  test('Not matching password', async ({ page }) => {
+  test('C7: Not matching password', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('Maryna');
     await page.locator('[id="signupLastName"]').fill('Test');
     await page.getByLabel('Email').fill('aqa-maryna@test.com');
@@ -28,7 +28,7 @@ test('Successful sign up', async ({ page }) => {
     await expect(page.locator('.invalid-feedback')).toHaveText('Passwords do not match')
   });
 
-  test('Empty password', async ({ page }) => {
+  test('C8: Empty password', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('Maryna');
     await page.locator('[id="signupLastName"]').fill('Test');
     await page.getByLabel('Email').fill('aqa-maryna@test.com');
@@ -38,7 +38,7 @@ test('Successful sign up', async ({ page }) => {
     await expect(page.locator('.invalid-feedback')).toHaveText('Password required')
   });
 
-  test('Short password', async ({ page }) => {
+  test('C9: Short password', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('Maryna');
     await page.locator('[id="signupLastName"]').fill('Test');
     await page.getByLabel('Email').fill('aqa-maryna@test.com');
@@ -48,7 +48,7 @@ test('Successful sign up', async ({ page }) => {
     await expect(page.locator('.invalid-feedback')).toHaveText('Password has to be from 8 to 15 characters long and contain at least one integer, one capital, and one small letter')
   });
 
-  test('Long password', async ({ page }) => {
+  test('C10: Long password', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('Maryna');
     await page.locator('[id="signupLastName"]').fill('Test');
     await page.getByLabel('Email').fill('aqa-maryna@test.com');
@@ -62,7 +62,7 @@ test('Successful sign up', async ({ page }) => {
     expect(borderColor).toBe('rgb(220, 53, 69)');
 });
 
-test('Short name and last name', async ({ page }) => {
+test('C11: Short name and last name', async ({ page }) => {
     await page.locator('[id="signupName"]').fill('M');
     await page.locator('[id="signupLastName"]').focus();
     await page.locator('[id="signupLastName"]').fill('T');

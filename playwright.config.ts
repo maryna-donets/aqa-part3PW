@@ -2,21 +2,21 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-
+import TestRailReporter from 'playwright-testrail-reporter';
 dotenv.config();
 
-import TestRailReporter from 'playwright-testrail-reporter';
+
 
 
 // Емуляція __dirname
-/*const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function loadEnv(env:string){
   dotenv.config({path: path.resolve(__dirname, `.env.${env}`), override: true})
 }
-const env = process.env.NODE_ENV || 'develop';
-loadEnv(env)*/
+const env = process.env.NODE_ENV || 'dev';
+loadEnv(env)
 
 /**
  * Read environment variables from file.
@@ -45,13 +45,14 @@ export default defineConfig({
   reporter: [
     ['list'], // Звичайний консольний репортер
     [
-      './node_modules/playwright-testrail-reporter',
+      "playwright-testrail-reporter",
       {
         host: 'https://marynadonets.testrail.io/',
         username: 'kotlyarmv@gmail.com',
         password: 'ncBtm0X4Z7/RFcEU8izX-frbbTCCIS48tqAJ7yweP',
         projectId: 1, // ID вашого проєкту в TestRail
-        suiteId: 1,   // ID тестової suite в TestRail
+        suiteId: 1, // ID тестової suite в TestRail
+        logging: true
       },
     ],
   ],
@@ -99,9 +100,9 @@ export default defineConfig({
     },
     {
       name: 'test',
-      testMatch: '**/*.spec.ts',
+      testMatch: '**/*.smoke.ts',
       use: { 
-       baseURL: process.env.BASE_URL,
+       //baseURL: process.env.BASE_URL,
         video: 'retain-on-failure',
         ...devices['Desktop Chrome'],
       },

@@ -2,7 +2,7 @@ import { test as setup, expect, chromium } from "@playwright/test";
 
 const authFile = 'playwright/.auth/user.json';
 
-setup('C2: authenticate', async ({ page }) => {
+setup('authenticate', async ({ page }) => {
 	
 	await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/');
 	await page.getByRole("button", { name: "Sign in" }).click();

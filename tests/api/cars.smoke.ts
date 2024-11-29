@@ -11,21 +11,21 @@ test.describe('Add cars', ()=> {
         authHeader = await getHeader(users.user1.email, users.user1.password)
     })
 
-    test("Add a car", async({request})=>{
+    test("C3: Add a car", async({request})=>{
         const response = await addCar(authHeader, cars.validCar.carBrandId, cars.validCar.carModelId, cars.validCar.mileage)
           expect(response.status).toBe(201)
           expect(response.body.status).toBe('ok')
           expect(response.body.data).toMatchObject(cars.validCar);
     })
 
-    test("Invalid car brand", async({request})=>{
+    test("C4: Invalid car brand", async({request})=>{
         const response = await addCar(authHeader, cars.invalidBrandCar.carBrandId, cars.invalidBrandCar.carModelId, cars.invalidBrandCar.mileage)
           expect(response.status).toBe(400)
           expect(response.body.status).toBe('error')
           expect(response.body.message).toBe(errors.brand)
     })
 
-    test("Invalid car model", async({request})=>{
+    test("C5: Invalid car model", async({request})=>{
         const response = await addCar(authHeader, cars.invalidModelCar.carBrandId, cars.invalidModelCar.carModelId, cars.invalidModelCar.mileage)
           expect(response.status).toBe(400)
           expect(response.body.status).toBe('error')
