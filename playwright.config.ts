@@ -44,6 +44,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'], // Звичайний консольний репортер
+    ["html", { open: 'never' }],
     [
       "playwright-testrail-reporter",
       {
